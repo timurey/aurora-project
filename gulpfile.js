@@ -22,6 +22,7 @@ var gulp = require('gulp'),
     googlecdn = require('gulp-google-cdn'),
     replace = require('gulp-replace'),
     less = require('gulp-less'),
+    ftp = require('vinyl-ftp'),
     gzip = require('gulp-gzip');
 
 
@@ -36,7 +37,7 @@ var path = {
     src: { //Пути откуда брать исходники
         html: 'src/*.html', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
         js: 'src/js/main.js',//В стилях и скриптах нам понадобятся только main файлы
-        style: 'src/style/main.scss',
+        style: 'src/css/main.scss',
         img: 'src/img/**/*.*', //Синтаксис img/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
         fonts: 'src/fonts/**/*.*',
         self : 'src'
@@ -44,7 +45,7 @@ var path = {
     watch: { //Тут мы укажем, за изменением каких файлов мы хотим наблюдать
         html: 'src/**/*.html',
         js: 'src/js/**/*.js',
-        style: 'src/style/**/*.scss',
+        style: 'src/css/**/*.*',
         img: 'src/img/**/*.*',
         fonts: 'src/fonts/**/*.*'
     },
@@ -123,10 +124,7 @@ gulp.task('style:build', function () {
         .pipe(sourcemaps.init()) //То же самое что и с js
         .pipe(sass()) //Скомпилируем
         .pipe(prefixer()) //Добавим вендорные префиксы
-        .pipe(cssmin()) //Сожмем                
-        .pipe(uncss({
-            html:['build/index.html']
-        }))
+        .pipe(cssmin()) //Сожмем
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(path.build.css)) //И в build
         .pipe(reload({stream: true}));
@@ -155,7 +153,7 @@ gulp.task('build', [
     'mainCSS',
     'mainFonts',
     'js:build',
-//   'style:build',
+    'style:build',
     'fonts:build',
     'image:build'
 ]);
@@ -186,6 +184,23 @@ gulp.task('clean', function (cb) {
     rimraf(path.clean, cb);
 });
 
+gulp.task( 'ftp', function () {
+
+    var conn = ftp.create( {
+        host:     'stm32_1.local',
+        user:     'admin',
+        password: 'admin',
+        parallel: 1
+    } );
+
+    // using base = '.' will transfer everything to /public_html correctly
+    // turn off buffering in gulp.src for best performance
+
+    return gulp.src('build/**/*' )
+        .pipe( conn.newerOrDifferentSize( '/web/test' ) ) // only upload newer files
+        .pipe( conn.dest( '/web/test' ) );
+
+} );
 
 gulp.task('default', ['build', 'webserver', 'watch']);
 
