@@ -22,6 +22,7 @@ var gulp = require('gulp'),
     googlecdn = require('gulp-google-cdn'),
     replace = require('gulp-replace'),
     less = require('gulp-less'),
+    ftp = require('vinyl-ftp'),
     gzip = require('gulp-gzip');
 
 
@@ -183,6 +184,23 @@ gulp.task('clean', function (cb) {
     rimraf(path.clean, cb);
 });
 
+gulp.task( 'ftp', function () {
+
+    var conn = ftp.create( {
+        host:     'stm32_1.local',
+        user:     'admin',
+        password: 'admin',
+        parallel: 1
+    } );
+
+    // using base = '.' will transfer everything to /public_html correctly
+    // turn off buffering in gulp.src for best performance
+
+    return gulp.src('build/**/*' )
+        .pipe( conn.newerOrDifferentSize( '/web/test' ) ) // only upload newer files
+        .pipe( conn.dest( '/web/test' ) );
+
+} );
 
 gulp.task('default', ['build', 'webserver', 'watch']);
 
