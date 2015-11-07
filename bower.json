@@ -22,7 +22,8 @@
     "jquery": "~2.1.1",
     "bootstrap": "~3.3.5",
     "font-awesome": "Font-Awesome#~4.4.0",
-    "Ionicons": "ionicons#~2.0.1"
+    "Ionicons": "ionicons#~2.0.1",
+    "aterrien/jQuery-Knob": "jquery-knob#~1.2.12"
   },
   "overrides": {
     "bootstrap": {
@@ -42,7 +43,8 @@
         "jquery": "~2.1.1",
         "bootstrap": "~3.3.5",
         "font-awesome": "Font-Awesome#~4.4.0",
-        "Ionicons": "ionicons#~2.0.1"
+        "Ionicons": "ionicons#~2.0.1",
+        "aterrien/jQuery-Knob": "jquery-knob#~1.2.12"
       }
     },
     "font-awesome": {
@@ -54,6 +56,13 @@
         "fonts/fontawesome-webfont.woff",
         "fonts/fontawesome-webfont.woff2"
       ]
+    },
+    "jquery-knob":{
+      "main":["dist/jquery.knob.min.js"
+      ]
     }
+  },
+  "devDependencies": {
+    
   }
 }
