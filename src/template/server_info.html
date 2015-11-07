@@ -1,0 +1,50 @@
+<!-- row -->
+<div class="row">
+  <div class="col-xs-12">
+    <!-- jQuery Knob -->
+    <div class="box box-solid">
+      <div class="box-header">
+        <i class="fa fa-bar-chart-o"></i>
+        <h3 class="box-title">Server status</h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-default btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" data-widget="remove"><i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <div class="row">
+          <div class="col-xs-6 col-md-3 text-center">
+          <div>
+            <input type="text" id="cpu_load_knob" class="knob" value="30" data-width="90" data-height="90" data-angleArc="250" data-angleOffset="-125" data-fgColor="#3c8dbc" data-readOnly=true>
+            </div>
+            <div class="knob-label">CPU usage</div>
+          </div>
+          <!-- ./col -->
+          <div class="col-xs-6 col-md-3 text-center">
+            <input type="text" id="memory_usage_knob" class="knob" value="70" data-width="90" data-height="90" data-angleArc="250" data-angleOffset="-125" data-fgColor="#f56954" data-readOnly=true>
+            <div class="knob-label">Memory usage</div>
+          </div>
+          <!-- ./col -->
+          <div class="col-xs-6 col-md-3 text-center">
+            <input type="text" id="cpu_temperature_knob" class="knob" value="70" data-width="90" data-height="90" data-angleArc="250" data-angleOffset="-125" data-fgColor="#f56954" data-readOnly=true>
+            <div class="knob-label">MCU temperature</div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.box-body -->
+       <div class="box-footer">
+          <div class="uuid">
+          </div>
+        </div>
+        <!-- /.box-footer-->
+    </div>
+    <!-- /.box -->
+  </div>
+  <!-- /.col -->
+</div>
+<!-- /.row -->
