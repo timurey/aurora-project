@@ -1,0 +1,37 @@
+{
+  "name": "aurora.project",
+  "version": "0.0.1",
+  "description": "aurora.project is a bootstrap3 Admin-LTE version of web interface for home automatization server on stm32 mcu",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Timur Taipov <taipov@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.2.3",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-google-cdn": "^2.0.0",
+    "gulp-gzip": "^1.2.0",
+    "gulp-if": "^2.0.0",
+    "gulp-imagemin": "^2.2.1",
+    "gulp-less": "^3.0.3",
+    "gulp-minify-css": "^1.0.0",
+    "gulp-order": "^1.1.1",
+    "gulp-replace": "^0.5.4",
+    "gulp-rigger": "^0.5.8",
+    "gulp-sass": "^1.3.3",
+    "gulp-sourcemaps": "^1.5.0",
+    "gulp-uglify": "^1.1.0",
+    "gulp-uncss": "^1.0.4",
+    "gulp-watch": "^4.1.1",
+    "imagemin-pngquant": "^4.0.0",
+    "main-bower-files": "^2.9.0",
+    "rimraf": "^2.3.1",
+    "wiredep": "^3.0.0-beta",
+    "yargs": "^3.29.0"
+  },
+  "dependencies": {}
+}

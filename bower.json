@@ -1,0 +1,59 @@
+{
+  "name": "aurora.project",
+  "version": "0.0.1",
+  "description": "aurora.project is a bootstrap3 Admin-LTE version of web interface for home automatization server on stm32 mcu",
+  "main": "index.html",
+  "authors": [
+    "Timur Taipov <taipov@gmail.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "AdminLTE": "admin-lte#~2.3.2",
+    "handlebars": "~4.0.4",
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.3.5",
+    "font-awesome": "Font-Awesome#~4.4.0",
+    "Ionicons": "ionicons#~2.0.1"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "./dist/js/bootstrap.min.js",
+        "./dist/css/bootstrap.min.css",
+        "./dist/css/bootstrap-theme.min.css"
+      ]
+    },
+    "AdminLTE": {
+      "main": [
+        "dist/css/AdminLTE.css",
+        "dist/js/app.js",
+        "dist/css/skins/skin-blue.min.css"
+      ],
+      "dependencies": {
+        "jquery": "~2.1.1",
+        "bootstrap": "~3.3.5",
+        "font-awesome": "Font-Awesome#~4.4.0",
+        "Ionicons": "ionicons#~2.0.1"
+      }
+    },
+    "font-awesome": {
+      "main": [
+        "css/font-awesome.css",
+        "fonts/fontawesome-webfont.eot",
+        "fonts/fontawesome-webfont.svg",
+        "fonts/fontawesome-webfont.ttf",
+        "fonts/fontawesome-webfont.woff",
+        "fonts/fontawesome-webfont.woff2"
+      ]
+    }
+  }
+}
