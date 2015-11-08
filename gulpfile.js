@@ -21,9 +21,8 @@ var gulp = require('gulp'),
     order = require("gulp-order"),
     googlecdn = require('gulp-google-cdn'),
     replace = require('gulp-replace'),
-    less = require('gulp-less'),
-    ftp = require('vinyl-ftp');
-
+    ftp = require('vinyl-ftp'),
+    less = require('gulp-less');
 
 
 var path = {
