@@ -25,6 +25,7 @@ var gulp = require('gulp'),
     ftp = require('vinyl-ftp');
 
 
+
 var path = {
     build: { //Тут мы укажем куда складывать готовые после сборки файлы
         html: 'build/',
