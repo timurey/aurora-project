@@ -78,3 +78,19 @@
 	{{/each}}
 </div>
 </script>
+
+<script id="analog_template" type="text/x-handlebars-template">
+<div>
+	{{#each inputs}}
+		{{#ifCond type '==' "analog" }}
+		<div class="col-xs-6 col-md-3 text-center">
+          <div>
+          	{{#makeAnalog}}{{/makeAnalog}}
+          </div>
+          <div class="knob-label"><h5>{{name}}</h5>{{place}}<h6>{{serial}}</h6></div>
+        </div>
+		{{/ifCond}}
+	{{/each}}
+</div>
+</script>
+
