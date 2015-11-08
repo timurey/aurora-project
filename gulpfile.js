@@ -22,8 +22,7 @@ var gulp = require('gulp'),
     googlecdn = require('gulp-google-cdn'),
     replace = require('gulp-replace'),
     less = require('gulp-less'),
-    ftp = require('vinyl-ftp'),
-    gzip = require('gulp-gzip');
+    ftp = require('vinyl-ftp');
 
 
 var path = {
@@ -108,7 +107,7 @@ gulp.task('less',function(){
             gulp.src(mainBowerFiles('**/*.less'),{ base: './src/bower_components' })
         .pipe(less())
         .pipe(gulp.dest(path.build.css)) //И в build
-})
+});
 gulp.task('js:build', function () {
     gulp.src(path.src.js) //Найдем наш main.js файл
         .pipe(rigger()) //Прогоним через rigger
