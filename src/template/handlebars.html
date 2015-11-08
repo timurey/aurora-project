@@ -63,3 +63,18 @@
 	{{memory.usage}}
 	</div>
 </script>
+
+<script id="dimmer_template" type="text/x-handlebars-template">
+<div>
+	{{#each inputs}}
+		{{#ifCond type '==' "dimmer" }}
+		<div class="col-xs-6 col-md-3 text-center">
+          <div>
+          	{{#makeDimmer}}{{/makeDimmer}}
+          </div>
+          <div class="knob-label"><h5>{{name}}</h5>{{place}}<h6>{{serial}}</h6></div>
+        </div>
+		{{/ifCond}}
+	{{/each}}
+</div>
+</script>

@@ -8,17 +8,17 @@ function localtime_update()
 {
 	var exist=0;
 	var element=document.getElementsByClassName("date_and_time");
-	if(element)
+	if(element.length>0)
 		{
 			exist++;
 		}
 	var element=document.getElementsByClassName("time");
-	if(element)
+	if(element.length>0)
 		{
 			exist++;
 		}
 	var element=document.getElementsByClassName("date");
-	if(element)
+	if(element.length>0)
 		{
 			exist++;
 		}

@@ -11,7 +11,7 @@ function status_update()
 	for (var i = 0; i < cpunames.length; i++) 
 	{
 		var element = document.getElementsByClassName(cpunames[i]);
-		if(element)
+		if(element.length>0)
 		{
 			exist++;
 		}
