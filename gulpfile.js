@@ -186,7 +186,7 @@ gulp.task('clean', function (cb) {
 gulp.task( 'ftp', function () {
 
     var conn = ftp.create( {
-        host:     'stm32_1.local',
+        host:     'stm32_1.local.',
         user:     'admin',
         password: 'admin',
         parallel: 1
