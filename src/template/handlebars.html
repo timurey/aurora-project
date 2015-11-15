@@ -94,3 +94,32 @@
 </div>
 </script>
 
+<script id="digital_template" type="text/x-handlebars-template">
+<div>
+	{{#each inputs}}
+		{{#ifCond type '==' "digital" }}
+		<div class="col-xs-6 col-md-3 text-center">
+          <div>
+          	{{#makeDigital}}{{/makeDigital}}
+          </div>
+          <div class="knob-label"><h5>{{name}}</h5>{{place}}<h6>{{serial}}</h6></div>
+        </div>
+		{{/ifCond}}
+	{{/each}}
+</div>
+</script>
+
+<script id="sequential_template" type="text/x-handlebars-template">
+<div>
+	{{#each inputs}}
+		{{#ifCond type '==' "sequential" }}
+		<div class="col-xs-6 col-md-3 text-center">
+          <div>
+          	{{#makeSequential}}{{/makeSequential}}
+          </div>
+          <div class="knob-label"><h5>{{name}}</h5>{{place}}<h6>{{serial}}</h6></div>
+        </div>
+		{{/ifCond}}
+	{{/each}}
+</div>
+</script>
