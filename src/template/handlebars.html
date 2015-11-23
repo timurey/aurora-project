@@ -68,11 +68,11 @@
 <div>
 	{{#each inputs}}
 		{{#ifCond type '==' "dimmer" }}
-		<div class="col-xs-6 col-md-3 text-center">
-          <div>
+		<div class="col-xs-6 col-md-3 text-center ttip">
+          {{#makeSerialDivTooltip}}{{/makeSerialDivTooltip}}
           	{{#makeDimmer}}{{/makeDimmer}}
           </div>
-          <div class="knob-label"><h5>{{name}}</h5>{{place}}<h6>{{serial}}</h6></div>
+          <div class="knob-label"><h5>{{name}}</h5>{{place}}</div>
         </div>
 		{{/ifCond}}
 	{{/each}}
@@ -84,10 +84,10 @@
 	{{#each inputs}}
 		{{#ifCond type '==' "analog" }}
 		<div class="col-xs-6 col-md-3 text-center">
-          <div>
+          {{#makeSerialDivTooltip}}{{/makeSerialDivTooltip}}
           	{{#makeAnalog}}{{/makeAnalog}}
           </div>
-          <div class="knob-label"><h5>{{name}}</h5>{{place}}<h6>{{serial}}</h6></div>
+          <div class="knob-label"><h5>{{name}}</h5>{{place}}</div>
         </div>
 		{{/ifCond}}
 	{{/each}}
@@ -98,11 +98,11 @@
 <div>
 	{{#each inputs}}
 		{{#ifCond type '==' "digital" }}
-		<div class="col-xs-6 col-md-3 text-center">
-          <div>
+		<div class="col-xs-6 col-md-3 text-center" >
+          {{#makeSerialDivTooltip}}{{/makeSerialDivTooltip}}
           	{{#makeDigital}}{{/makeDigital}}
           </div>
-          <div class="knob-label"><h5>{{name}}</h5>{{place}}<h6>{{serial}}</h6></div>
+          <div class="knob-label"><h5>{{name}}</h5>{{place}}</div>
         </div>
 		{{/ifCond}}
 	{{/each}}
@@ -114,12 +114,39 @@
 	{{#each inputs}}
 		{{#ifCond type '==' "sequential" }}
 		<div class="col-xs-6 col-md-3 text-center">
-          <div>
+          {{#makeSerialDivTooltip}}{{/makeSerialDivTooltip}}
           	{{#makeSequential}}{{/makeSequential}}
           </div>
-          <div class="knob-label"><h5>{{name}}</h5>{{place}}<h6>{{serial}}</h6></div>
+          <div class="knob-label"><h5>{{name}}</h5>{{place}}</div>
         </div>
 		{{/ifCond}}
 	{{/each}}
 </div>
+</script>
+
+<script id="temperature_template" type="text/x-handlebars-template">
+	<div>
+              <table class="table">
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Place</th>
+                  <th>Name</th>
+                  <th style="width:180px"></th>
+                  <th style="width: 40px">Value</th>
+                </tr>
+                {{#each temperature}}
+                {{#makeSerialTrTooltip}}{{/makeSerialTrTooltip}}
+                  <td>{{id}}.</td>
+                  <td>{{place}}</td>
+                  <td>{{name}}</td>
+                  <td>
+                    <div class="progress progress-xs">
+                      <div class="progress-bar progress-bar-danger" style="width: {{value}}%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-red">{{value}}&deg;</span></td>
+                </tr>
+                {{/each}}
+              </table>
+	</div>
 </script>

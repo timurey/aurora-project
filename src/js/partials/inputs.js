@@ -16,7 +16,7 @@ Object.size = function(obj) {
 
 
 
-var data1 = 
+var constDataInputs = 
 				{
 					inputs:
 						[{
@@ -70,38 +70,35 @@ function input_update()
 
 	if (exist)
 		{
-			var value;
-			
-			$.getJSON(inputsAPI, function(data) {
-			
-				
+			// var dataInputs = constDataInputs;
+			$.getJSON(inputsAPI, function(dataInputs) {
+						
  				//Передаем значения в крговые диаграммы
- 				for (var i = 0; i < data.inputs.length; i++) {
- 					if (data.inputs[i].type == 'dimmer')
+ 				for (var i = 0; i < dataInputs.inputs.length; i++) {
+ 					if (dataInputs.inputs[i].type == 'dimmer')
  					{
- 						$('#dimmer_'+data.inputs[i].id).val(data.inputs[i].value).trigger('change');
+ 						$('#dimmer_'+dataInputs.inputs[i].id).val(dataInputs.inputs[i].value).trigger('change');
 
  					}
- 					if (data.inputs[i].type == 'analog')
+ 					if (dataInputs.inputs[i].type == 'analog')
  					{
- 						$('#analog_'+data.inputs[i].id).val(data.inputs[i].value).trigger('change');
+ 						$('#analog_'+dataInputs.inputs[i].id).val(dataInputs.inputs[i].value).trigger('change');
 
  					}
- 					if (data.inputs[i].type == 'digital')
+ 					if (dataInputs.inputs[i].type == 'digital')
  					{
- 						$('#digital_'+data.inputs[i].id).val((data.inputs[i].value? 100 : 0)).trigger('change');
+ 						$('#digital_'+dataInputs.inputs[i].id).val((dataInputs.inputs[i].value? 100 : 0)).trigger('change');
 
  					}
- 					if (data.inputs[i].type == 'sequential')
+ 					if (dataInputs.inputs[i].type == 'sequential')
  					{
- 						$('#sequential_'+data.inputs[i].id).val(parseInt(data.inputs[i].value,16)).trigger('change');
+ 						$('#sequential_'+dataInputs.inputs[i].id).val(parseInt(dataInputs.inputs[i].value,16)).trigger('change');
 
  					}
  				};
 				
 
 				});
-			
 			window.setTimeout(input_update, 400);
  		}
 }
@@ -109,7 +106,7 @@ function input_update()
 
 function input_create()
 {
-	// var data = data1;
+	
 	exist=0;
 	var value_1;
 	var i;
@@ -124,39 +121,39 @@ function input_create()
 	};
 	if (exist)
 		{
-			
-			$.getJSON(inputsAPI, function(data) {
+			// var dataInputs = constDataInputs;
+			$.getJSON(inputsAPI, function(dataInputs) {
 			
  				// Получаем шаблон
 				var templateScript = $('#digital_template').html();
  				// Функция Handlebars.compile принимает шаблон и возвращает новую функцию
  				var template = Handlebars.compile(templateScript);
 				// Формируем HTML и вставляем в документ
-				$('.digital_place').html(template(data));
+				$('.digital_place').html(template(dataInputs));
 
  				var templateScript = $('#analog_template').html();
  				// Функция Handlebars.compile принимает шаблон и возвращает новую функцию
  				var template = Handlebars.compile(templateScript);
 				// Формируем HTML и вставляем в документ
-				$('.analog_place').html(template(data));
+				$('.analog_place').html(template(dataInputs));
 
 				var templateScript = $('#sequential_template').html();
  				// Функция Handlebars.compile принимает шаблон и возвращает новую функцию
  				var template = Handlebars.compile(templateScript);
 				// Формируем HTML и вставляем в документ
-				$('.sequential_place').html(template(data));
+				$('.sequential_place').html(template(dataInputs));
 
 				var templateScript = $('#dimmer_template').html();
  				// Функция Handlebars.compile принимает шаблон и возвращает новую функцию
  				var template = Handlebars.compile(templateScript);
 				// Формируем HTML и вставляем в документ
-				$('.dimmer_place').html(template(data));	
+				$('.dimmer_place').html(template(dataInputs));	
 
  				// Get the size of an object
-				var size = Object.size(data.inputs);
+				var size = Object.size(dataInputs.inputs);
  				//Инициализируем Knob
 
- 				var inputs = data["inputs"];
+ 				var inputs = dataInputs["inputs"];
  				
  				for (var j = 0; j < size; j++) {
  					if (inputs[j].type == "dimmer")
@@ -195,6 +192,8 @@ function input_create()
 
 				});
  		}
+
+ 
  		window.setTimeout(input_update, 1000);
 }
 
@@ -211,6 +210,7 @@ function input_create()
  		
  		var id = Handlebars.escapeExpression(this.id),
  		value = Handlebars.escapeExpression(this.value);
+ 		var serial = Handlebars.escapeExpression(this.serial);
  		var string = "<input type=\"text\" id=\"dimmer_"+id+"\" class=\"knob\" value=\""+value+"\" data-width=\"90\" data-height=\"90\" data-angleArc=\"250\" data-angleOffset=\"-125\" data-fgColor=\"#3c8dbc\" data-readOnly=true>";
  		return string;
  	});
@@ -218,7 +218,8 @@ function input_create()
  		
  		var id = Handlebars.escapeExpression(this.id),
  		value = Handlebars.escapeExpression(this.value);
- 		var string = "<input type=\"text\" id=\"analog_"+id+"\" class=\"knob\" value=\""+value+"\" data-width=\"90\" data-height=\"90\" data-angleArc=\"250\" data-angleOffset=\"-125\" data-fgColor=\"#3c8dbc\" data-readOnly=true>";
+ 		var serial = Handlebars.escapeExpression(this.serial);
+ 		var string = "<input type=\"text\" id=\"analog_"+id+"\" class=\"knob\" value=\""+value+"\" data-width=\"90\" data-height=\"90\" data-angleArc=\"250\" data-angleOffset=\"-125\" data-fgColor=\"#3c8dbc\" data-readOnly=true data-readOnly=true>";
  		return string;
  	});
 
@@ -226,8 +227,8 @@ function input_create()
  		
  		var id = Handlebars.escapeExpression(this.id),
  		value = Handlebars.escapeExpression(this.value);
-
- 		var string = "<input type=\"text\" id=\"digital_"+id+"\" class=\"knob\" value=\""+(value? 100 : 0)+"\" data-width=\"90\" data-height=\"90\" data-angleArc=\"250\" data-angleOffset=\"-125\" data-fgColor=\"#3c8dbc\" data-readOnly=true data-displayInput=\"false\">";
+		var serial = Handlebars.escapeExpression(this.serial);
+ 		var string = "<input type=\"text\" id=\"digital_"+id+"\" class=\"knob\" value=\""+(value? 100 : 0)+"\" data-width=\"90\" data-height=\"90\" data-angleArc=\"250\" data-angleOffset=\"-125\" data-fgColor=\"#3c8dbc\" data-readOnly=true data-displayInput=\"false\"  data-readOnly=true>";
  		return string;
  	});
 
@@ -235,10 +236,17 @@ function input_create()
  		
  		var id = Handlebars.escapeExpression(this.id),
  		value = Handlebars.escapeExpression(this.value);
-
- 		var string = "<input type=\"text\" id=\"sequential_"+id+"\" class=\"knob\" value=\""+value+"\" data-width=\"90\" data-height=\"90\" data-angleArc=\"250\" data-angleOffset=\"-125\" data-fgColor=\"#3c8dbc\" data-readOnly=true>";
+ 		var serial = Handlebars.escapeExpression(this.serial);
+ 		var string = "<input type=\"text\" id=\"sequential_"+id+"\" class=\"knob\" value=\""+value+"\" data-width=\"90\" data-height=\"90\" data-angleArc=\"250\" data-angleOffset=\"-125\" data-fgColor=\"#3c8dbc\" data-readOnly=true  data-readOnly=true>";
  		return string;
  	});
+
+ 	Handlebars.registerHelper('makeSerialDivTooltip', function() {
+ 		var serial = Handlebars.escapeExpression(this.serial);
+ 		var string = "<div data-toggle=\"tooltip\" title=\""+serial+"\">";
+ 		return string;
+ 	});
+
 
 Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
 
