@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# compress the files if they aren't
+find build -iname '*.html' -size +100c -exec gzip -fk {} \;
+find build -iname '*.htm' -size +100c -exec gzip -fk {} \;
+find build -iname '*.js' -size +100c -exec gzip -fk {} \;
+find build -iname '*.css' -size +100c -exec gzip -fk {} \;
+find build -iname '*.woff' -size +100c -exec gzip -fk {} \;
+
+#clean gziped directory and delete it
+find gziped -iname '*' -exec rm {} \;
+find gziped -iname '*' -exec rmdir -p {} \;
+
+#create directory gziped
+mkdir ./gziped
+
+#create directory gziped_tmp
+find build -type d | xargs -IZzZ mkdir -p gziped_tmp/ZzZ
+
+#copy all .gz files with saving direcotry structure
+find build -iname '*.gz' -exec cp -Rv {} gziped_tmp/{} \;
+#remove all *.gz files from build
+find build -iname '*.gz' -exec rm {} \;
+
+mv gziped_tmp/build/* gziped
+
+rmdir gziped_tmp/build
+rmdir gziped_tmp
+
