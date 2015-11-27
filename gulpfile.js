@@ -10,7 +10,7 @@ var gulp = require('gulp'),
     cssmin = require('gulp-minify-css'),
     imagemin = require('gulp-imagemin'),
     pngquant = require('imagemin-pngquant'),
-    rimraf = require('rimraf'),
+    del = require('del'),
     browserSync = require("browser-sync"),
     uncss = require("gulp-uncss"),
     reload = browserSync.reload,
@@ -22,7 +22,9 @@ var gulp = require('gulp'),
     googlecdn = require('gulp-google-cdn'),
     replace = require('gulp-replace'),
     ftp = require('vinyl-ftp'),
-    less = require('gulp-less');
+    less = require('gulp-less'),
+    ignore = require('gulp-ignore'),
+    shell = require('gulp-shell');
 
 
 var path = {
@@ -48,7 +50,11 @@ var path = {
         img: 'src/img/**/*.*',
         fonts: 'src/fonts/**/*.*'
     },
-    clean: './build'
+    clean: {
+        build: './build',
+        gziped: './gziped'
+    }
+
 };
 
 var config = {
@@ -72,6 +78,7 @@ gulp.task('html:build', function () {
         .pipe(gulp.dest(path.build.html)) //Выплюнем их в папку build
         .pipe(reload({stream: true})); //И перезагрузим наш сервер для обновлений
 });
+
 
 gulp.task('mainJS', function() {
     gulp.src(mainBowerFiles('**/*.js'),{ base: './src/bower_components' })
@@ -103,11 +110,13 @@ gulp.task('mainCSS', function() {
 
     .pipe(reload({stream: true})); //И перезагрузим сервер
 });
+
 gulp.task('less',function(){
             gulp.src(mainBowerFiles('**/*.less'),{ base: './src/bower_components' })
         .pipe(less())
         .pipe(gulp.dest(path.build.css)) //И в build
 });
+
 gulp.task('js:build', function () {
     gulp.src(path.src.js) //Найдем наш main.js файл
         .pipe(rigger()) //Прогоним через rigger
@@ -180,10 +189,31 @@ gulp.task('webserver', function () {
 });
 
 gulp.task('clean', function (cb) {
-    rimraf(path.clean, cb);
+    del([path.clean.build, path.clean.gziped], cb);
 });
 
-gulp.task( 'ftp', function () {
+
+gulp.task( 'ftp_gzip',['compress'], function () {
+
+    var conn = ftp.create( {
+        host:     'stm32_1.local.',
+        user:     'admin',
+        password: 'admin',
+        parallel: 1
+    } );
+
+    // using base = '.' will transfer everything to /public_html correctly
+    // turn off buffering in gulp.src for best performance
+
+    return gulp.src('./gziped/**/*' )
+        .pipe( conn.newerOrDifferentSize( '/web/gziped/test' ) ) // only upload newer files
+        .pipe( conn.dest( '/web/gziped/test' ) );
+
+} );
+
+gulp.task('compress', shell.task('./gzip_all') );
+
+gulp.task( 'ftp',['ftp_gzip'], function () {
 
     var conn = ftp.create( {
         host:     'stm32_1.local.',
