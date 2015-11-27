@@ -29,8 +29,12 @@
       "main": [
         "./dist/js/bootstrap.min.js",
         "./dist/css/bootstrap.min.css",
-        "./dist/css/bootstrap-theme.min.css"
-      ]
+        "./dist/css/bootstrap-theme.min.css",
+        "./js/tooltip.js"
+      ],
+      "dependencies": {
+        "jquery-ui": "~1.11.4"
+      }
     },
     "AdminLTE": {
       "main": [
@@ -42,7 +46,10 @@
         "jquery": "~2.1.1",
         "bootstrap": "~3.3.5",
         "font-awesome": "Font-Awesome#~4.4.0",
-        "Ionicons": "ionicons#~2.0.1"
+        "Ionicons": "ionicons#~2.0.1",
+        "aterrien/jQuery-Knob": "jquery-knob#~1.2.12",
+        "jqueryui-touch-punch": "*",
+        "jquery-ui": "~1.11.4"
       }
     },
     "font-awesome": {
@@ -54,6 +61,14 @@
         "fonts/fontawesome-webfont.woff",
         "fonts/fontawesome-webfont.woff2"
       ]
+    },
+    "jquery-knob": {
+      "main": [
+        "dist/jquery.knob.min.js"
+      ]
     }
+  },
+  "devDependencies": {
+    
   }
 }
