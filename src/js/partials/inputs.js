@@ -211,7 +211,7 @@ function input_create()
  		var id = Handlebars.escapeExpression(this.id),
  		value = Handlebars.escapeExpression(this.value);
  		var serial = Handlebars.escapeExpression(this.serial);
- 		var string = "<input type=\"text\" id=\"dimmer_"+id+"\" class=\"knob\" value=\""+value+"\" data-width=\"90\" data-height=\"90\" data-angleArc=\"250\" data-angleOffset=\"-125\" data-fgColor=\"#3c8dbc\" data-readOnly=true>";
+ 		var string = "<input type=\"text\" data-linecap=round id=\"dimmer_"+id+"\" class=\"knob\" value=\""+value+"\" data-width=\"90\" data-height=\"90\" data-angleArc=\"250\" data-angleOffset=\"-125\" data-fgColor=\"#3c8dbc\" data-readOnly=true>";
  		return string;
  	});
  	Handlebars.registerHelper('makeAnalog', function() {
@@ -219,7 +219,7 @@ function input_create()
  		var id = Handlebars.escapeExpression(this.id),
  		value = Handlebars.escapeExpression(this.value);
  		var serial = Handlebars.escapeExpression(this.serial);
- 		var string = "<input type=\"text\" id=\"analog_"+id+"\" class=\"knob\" value=\""+value+"\" data-width=\"90\" data-height=\"90\" data-angleArc=\"250\" data-angleOffset=\"-125\" data-fgColor=\"#3c8dbc\" data-readOnly=true data-readOnly=true>";
+ 		var string = "<input type=\"text\" data-linecap=round id=\"analog_"+id+"\" class=\"knob\" value=\""+value+"\" data-width=\"90\" data-height=\"90\" data-angleArc=\"250\" data-angleOffset=\"-125\" data-fgColor=\"#3c8dbc\" data-readOnly=true data-readOnly=true>";
  		return string;
  	});
 
@@ -228,7 +228,7 @@ function input_create()
  		var id = Handlebars.escapeExpression(this.id),
  		value = Handlebars.escapeExpression(this.value);
 		var serial = Handlebars.escapeExpression(this.serial);
- 		var string = "<input type=\"text\" id=\"digital_"+id+"\" class=\"knob\" value=\""+(value? 100 : 0)+"\" data-width=\"90\" data-height=\"90\" data-angleArc=\"250\" data-angleOffset=\"-125\" data-fgColor=\"#3c8dbc\" data-readOnly=true data-displayInput=\"false\"  data-readOnly=true>";
+ 		var string = "<input type=\"text\" data-linecap=round id=\"digital_"+id+"\" class=\"knob\" value=\""+(value? 100 : 0)+"\" data-width=\"90\" data-height=\"90\" data-angleArc=\"250\" data-angleOffset=\"-125\" data-fgColor=\"#3c8dbc\" data-readOnly=true data-displayInput=\"false\"  data-readOnly=true>";
  		return string;
  	});
 
@@ -237,7 +237,7 @@ function input_create()
  		var id = Handlebars.escapeExpression(this.id),
  		value = Handlebars.escapeExpression(this.value);
  		var serial = Handlebars.escapeExpression(this.serial);
- 		var string = "<input type=\"text\" id=\"sequential_"+id+"\" class=\"knob\" value=\""+value+"\" data-width=\"90\" data-height=\"90\" data-angleArc=\"250\" data-angleOffset=\"-125\" data-fgColor=\"#3c8dbc\" data-readOnly=true  data-readOnly=true>";
+ 		var string = "<input type=\"text\" data-linecap=round id=\"sequential_"+id+"\" class=\"knob\" value=\""+value+"\" data-width=\"90\" data-height=\"90\" data-angleArc=\"250\" data-angleOffset=\"-125\" data-fgColor=\"#3c8dbc\" data-readOnly=true  data-readOnly=true>";
  		return string;
  	});
 
