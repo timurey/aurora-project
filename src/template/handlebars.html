@@ -1,3 +1,28 @@
+<script>
+var HandleBarsTeplatesData = {  
+    "clock":[  
+        {  
+            "templateBody":"#date_and_time_template",
+            "templatePlace":".date_and_time"
+        },
+        {  
+            "templateBody":"#time_template",
+            "templatePlace":".time"
+        },
+        {  
+            "templateBody":"#date_template",
+            "templatePlace":".date"
+        }
+    ],
+    "cpu":[  
+        {  
+            "templateBody":"#uuid_template",
+            "templatePlace":".uuid"
+        }
+    ]
+}
+</script>
+
 <script id="date_and_time_template" type="text/x-handlebars-template">
 <div>
 	{{date}} {{time}}
