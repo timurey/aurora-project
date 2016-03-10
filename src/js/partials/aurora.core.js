@@ -3,20 +3,20 @@
  * LOCALTIME
  */
 var restAPI = "/rest/v1/"
-var methods = {}
+var mainObject = {}
 
-function findElements() {
+function findElements(_methods) {
 
-    for (var key in methods) { //Перебираем все классы
+    for (var key in _methods) { //Перебираем все классы
 
-        var element = document.getElementsByClassName(methods[key].name);
+        var element = document.getElementsByClassName(_methods[key].name);
 
         if (element.length > 0) {
-            methods[key].exist = true; // Отмечаем, что он есть
-            console.log("Found this method: " + methods[key].name);
+            _methods[key].exist = true; // Отмечаем, что он есть
+            console.log("Found this method: " + _methods[key].name);
         } else {
-            methods[key].exist = false; //Или нет
-            console.log("Can't found this method: " + methods[key].name);
+            _methods[key].exist = false; //Или нет
+            console.log("Can't found this method: " + _methods[key].name);
         }
     }
 }
@@ -41,6 +41,12 @@ function getValues() {
                         // Формируем HTML и вставляем в документ
                         $(Templates[num].templatePlace).html(template(data));
                     }
+                },
+                statusCode: {
+                    300: function(data) {
+                        //Есть субэлементы
+                        methods[Kkey].subs = true;
+                    }
                 }
             });
 
@@ -49,35 +55,60 @@ function getValues() {
 }
 
 
-function methodsUpdate() {
-    $.getJSON(restAPI) //Получаем возможные классы REST API и их методы
 
-    .done(function(data) {
-            for (var key in data.class) {
-                methods[key] = data.class[key];
+function recursiveSearchElements(obj) {
+    obj.statusCode = "";
+    var allowGet = false;
+    for (var i = 0; i < obj.method.length; i++) {
+        if (obj.method[i] === "GET") {
+            allowGet = true;
+        }
+    }
+    if (allowGet == true) {
+        $.ajax({
+            dataType: "json",
+            url: obj.path,
+            success: {},
+
+            statusCode: {
+                200: function(data) {
+                    // obj.response = JSON.parse(JSON.stringify(data));
+                    obj.response = data;
+                    obj.statusCode = 200;
+                    var element = document.getElementsByClassName(obj.name);
+                    if (element.length > 0) {
+                        for (var num in obj.response[obj.name])
+                            {
+                                
+                            }
+
+                    }
+                },
+                300: function(data) {
+                    obj.response = JSON.parse(data.responseText);
+                    obj.statusCode = 300;
+                    console.log("Got it!: " + data.responseText);
+                    for (var i = 0; i < obj.response[obj.name].length; i++) {
+                        recursiveSearchElements(obj.response[obj.name][i]);
+                    }
+                },
+                404: {
+
+                },
+                501: {
+
+                }
             }
-            console.log("Got it!");
-            findElements(); // Ищем экземпляры классов на странице
-            getValues(); // Подставляем значения 
-        })
-        .fail(function() {
-            console.log("Error");
-        })
-        .always(function() {
-            console.log("Complete");
         });
-
-    window.setTimeout(methodsUpdate, 1000);
+    }
 }
 
 
-
-/*
- * Misc.
- */
-
-
 $(document).ready(function() {
+    mainObject.path = restAPI;
+    mainObject.name = "classes";
+    mainObject.method = ["GET"];
 
-    methodsUpdate();
+    recursiveSearchElements(mainObject);
+
 });
