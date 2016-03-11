@@ -1,94 +1,66 @@
-
 /*
  * LOCALTIME
  */
 var restAPI = "/rest/v1/"
 var mainObject = {}
 
-function findElements(_methods) {
+function doHanleBars(obj) {
 
-    for (var key in _methods) { //Перебираем все классы
+    var Templates = HandleBarsTeplatesData[obj.parent.name] //объект HandleBarsTeplatesData описан в handlebars.html
 
-        var element = document.getElementsByClassName(_methods[key].name);
-
-        if (element.length > 0) {
-            _methods[key].exist = true; // Отмечаем, что он есть
-            console.log("Found this method: " + _methods[key].name);
-        } else {
-            _methods[key].exist = false; //Или нет
-            console.log("Can't found this method: " + _methods[key].name);
-        }
+    for (var num in Templates) {
+        // Получаем шаблон
+        var templateScript = $(Templates[num].tBody).html();
+        // Функция Handlebars.compile принимает шаблон и возвращает новую функцию
+        var template = Handlebars.compile(templateScript);
+        // Формируем HTML и вставляем в документ
+        var html = template(obj);
+        $('.' + Templates[num].tPlace).html(html);
     }
 }
-
-function getValues() {
-    for (var key in methods) {
-
-        if (methods[key].exist == true) {
-            $.ajax({
-                dataType: "json",
-                url: methods[key].path,
-                context: {
-                    Kkey: key
-                },
-                success: function(data) {
-                    var Templates = HandleBarsTeplatesData[methods[this.Kkey].name]
-                    for (var num in Templates) {
-                        // Получаем шаблон
-                        var templateScript = $(Templates[num].templateBody).html();
-                        // Функция Handlebars.compile принимает шаблон и возвращает новую функцию
-                        var template = Handlebars.compile(templateScript);
-                        // Формируем HTML и вставляем в документ
-                        $(Templates[num].templatePlace).html(template(data));
-                    }
-                },
-                statusCode: {
-                    300: function(data) {
-                        //Есть субэлементы
-                        methods[Kkey].subs = true;
-                    }
-                }
-            });
-
-        }
-    }
-}
-
-
 
 function recursiveSearchElements(obj) {
     obj.statusCode = "";
     var allowGet = false;
+    var pHtmlColl;
+    //Find current object in parent elements
+    if (obj.parent !== undefined) {
+
+        obj.domEl = [];
+        var len = obj.domEl.length; //Сохраняем длину текущего domEl
+        for (var num = 0; num < obj.parent.domEl.length; num++) { //Ищем текущий объект во всех родительских 
+            pHtmlColl = obj.parent.domEl[num].getElementsByClassName(obj.name);
+            for (var i = 0; i < pHtmlColl.length; i++) {
+                obj.domEl[obj.domEl.length + num] = pHtmlColl[i];
+            }
+        }
+
+    } else {
+        obj.domEl.length = 1;
+    }
     for (var i = 0; i < obj.method.length; i++) {
         if (obj.method[i] === "GET") {
             allowGet = true;
         }
     }
-    if (allowGet == true) {
+    if (allowGet == true && (obj.domEl.length > 0)) {
         $.ajax({
             dataType: "json",
             url: obj.path,
             success: {},
-
             statusCode: {
                 200: function(data) {
-                    // obj.response = JSON.parse(JSON.stringify(data));
                     obj.response = data;
                     obj.statusCode = 200;
-                    var element = document.getElementsByClassName(obj.name);
-                    if (element.length > 0) {
-                        for (var num in obj.response[obj.name])
-                            {
-                                
-                            }
-
-                    }
+                    obj.response.parent = obj;
+                    doHanleBars(obj.response);
                 },
                 300: function(data) {
                     obj.response = JSON.parse(data.responseText);
                     obj.statusCode = 300;
                     console.log("Got it!: " + data.responseText);
                     for (var i = 0; i < obj.response[obj.name].length; i++) {
+                        obj.response[obj.name][i].parent = obj;
                         recursiveSearchElements(obj.response[obj.name][i]);
                     }
                 },
@@ -103,12 +75,13 @@ function recursiveSearchElements(obj) {
     }
 }
 
-
 $(document).ready(function() {
+
     mainObject.path = restAPI;
     mainObject.name = "classes";
     mainObject.method = ["GET"];
-
+    mainObject.domEl = [];
+    mainObject.domEl[0] = document.getElementsByTagName('body')[0];
     recursiveSearchElements(mainObject);
 
 });

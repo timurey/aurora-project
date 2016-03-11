@@ -97,7 +97,6 @@ function input_update()
  					}
  				};
 				
-
 				});
 			window.setTimeout(input_update, 400);
  		}
