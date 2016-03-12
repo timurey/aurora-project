@@ -1,152 +1,153 @@
+<script>
+var HandleBarsTeplatesData = {
+    "clock": [{
+        "tBody": "#date_and_time_template",
+        "tPlace": "date_and_time"
+    }, {
+        "tBody": "#time_template",
+        "tPlace": "time"
+    }, {
+        "tBody": "#date_template",
+        "tPlace": "date"
+    }],
+    "cpu": [{
+        "tBody": "#uid_template",
+        "tPlace": "uid"
+    }],
+    "temperature": [{
+      "tBody": "#temperatureAllProgressBarPlace_template",
+    "tPlace": "temperatureAllProgressBarPlace"
+    }]
+    
+}
+</script>
 <script id="date_and_time_template" type="text/x-handlebars-template">
-<div>
-	{{date}} {{time}}
-</div>
+    <div>
+        {{clock.date}} {{clock.time}}
+    </div>
 </script>
-
 <script id="time_template" type="text/x-handlebars-template">
-<div>
-	{{time}}
-</div>
+    <div>
+        {{clock.time}}
+    </div>
 </script>
-
 <script id="date_template" type="text/x-handlebars-template">
-<div>
-	{{date}}
-</div>
+    <div>
+        {{clock.date}}
+    </div>
 </script>
-
-<script id="uuid_template" type="text/x-handlebars-template">
-<div>
-	UUID: {{uid}}
-</div>
+<script id="uid_template" type="text/x-handlebars-template">
+    <div>
+        UUID: {{uid}}
+    </div>
 </script>
-
 <script id="cpu_load_template" type="text/x-handlebars-template">
-<div>
-	{{cpu.load}}
-</div>
+    <div>
+        {{cpu.load}}
+    </div>
 </script>
-
 <script id="cpu_clock_template" type="text/x-handlebars-template">
-<div>
-	{{cpu.clock}}
-</div>
+    <div>
+        {{cpu.clock}}
+    </div>
 </script>
-
 <script id="cpu_temperature_template" type="text/x-handlebars-template">
-<div>
-	{{cpu.temperature}}
-</div>
+    <div>
+        {{cpu.temperature}}
+    </div>
 </script>
-
 <script id="memory_total_template" type="text/x-handlebars-template">
-<div>
-	{{memory.total}}
-</div>
+    <div>
+        {{memory.total}}
+    </div>
 </script>
-
 <script id="memory_heap_template" type="text/x-handlebars-template">
-	<div>
-		{{memory.heap}}
-	</div>
+    <div>
+        {{memory.heap}}
+    </div>
 </script>
-
 <script id="memry_free_template" type="text/x-handlebars-template">
-	<div>
-	{{memory.free}}
-	</div>
+    <div>
+        {{memory.free}}
+    </div>
 </script>
-
 <script id="memory_usage_template" type="text/x-handlebars-template">
-	<div>
-	{{memory.usage}}
-	</div>
+    <div>
+        {{memory.usage}}
+    </div>
 </script>
-
 <script id="dimmer_template" type="text/x-handlebars-template">
-<div>
-	{{#each inputs}}
-		{{#ifCond type '==' "dimmer" }}
-		<div class="col-xs-6 col-md-3 text-center ttip">
-          {{#makeSerialDivTooltip}}{{/makeSerialDivTooltip}}
-          	{{#makeDimmer}}{{/makeDimmer}}
-          </div>
-          <div class="knob-label"><h5>{{name}}</h5>{{place}}</div>
+    <div>
+        {{#each inputs}} {{#ifCond type '==' "dimmer" }}
+        <div class="col-xs-6 col-md-3 text-center ttip">
+            {{#makeSerialDivTooltip}}{{/makeSerialDivTooltip}} {{#makeDimmer}}{{/makeDimmer}}
         </div>
-		{{/ifCond}}
-	{{/each}}
-</div>
+        <div class="knob-label">
+            <h5>{{name}}</h5>{{place}}</div>
+    </div>
+    {{/ifCond}} {{/each}}
+    </div>
 </script>
-
 <script id="analog_template" type="text/x-handlebars-template">
-<div>
-	{{#each inputs}}
-		{{#ifCond type '==' "analog" }}
-		<div class="col-xs-6 col-md-3 text-center">
-          {{#makeSerialDivTooltip}}{{/makeSerialDivTooltip}}
-          	{{#makeAnalog}}{{/makeAnalog}}
-          </div>
-          <div class="knob-label"><h5>{{name}}</h5>{{place}}</div>
+    <div>
+        {{#each inputs}} {{#ifCond type '==' "analog" }}
+        <div class="col-xs-6 col-md-3 text-center">
+            {{#makeSerialDivTooltip}}{{/makeSerialDivTooltip}} {{#makeAnalog}}{{/makeAnalog}}
         </div>
-		{{/ifCond}}
-	{{/each}}
-</div>
+        <div class="knob-label">
+            <h5>{{name}}</h5>{{place}}</div>
+    </div>
+    {{/ifCond}} {{/each}}
+    </div>
 </script>
-
 <script id="digital_template" type="text/x-handlebars-template">
-<div>
-	{{#each inputs}}
-		{{#ifCond type '==' "digital" }}
-		<div class="col-xs-6 col-md-3 text-center" >
-          {{#makeSerialDivTooltip}}{{/makeSerialDivTooltip}}
-          	{{#makeDigital}}{{/makeDigital}}
-          </div>
-          <div class="knob-label"><h5>{{name}}</h5>{{place}}</div>
+    <div>
+        {{#each inputs}} {{#ifCond type '==' "digital" }}
+        <div class="col-xs-6 col-md-3 text-center">
+            {{#makeSerialDivTooltip}}{{/makeSerialDivTooltip}} {{#makeDigital}}{{/makeDigital}}
         </div>
-		{{/ifCond}}
-	{{/each}}
-</div>
+        <div class="knob-label">
+            <h5>{{name}}</h5>{{place}}</div>
+    </div>
+    {{/ifCond}} {{/each}}
+    </div>
 </script>
-
 <script id="sequential_template" type="text/x-handlebars-template">
-<div>
-	{{#each inputs}}
-		{{#ifCond type '==' "sequential" }}
-		<div class="col-xs-6 col-md-3 text-center">
-          {{#makeSerialDivTooltip}}{{/makeSerialDivTooltip}}
-          	{{#makeSequential}}{{/makeSequential}}
-          </div>
-          <div class="knob-label"><h5>{{name}}</h5>{{place}}</div>
+    <div>
+        {{#each inputs}} {{#ifCond type '==' "sequential" }}
+        <div class="col-xs-6 col-md-3 text-center">
+            {{#makeSerialDivTooltip}}{{/makeSerialDivTooltip}} {{#makeSequential}}{{/makeSequential}}
         </div>
-		{{/ifCond}}
-	{{/each}}
-</div>
+        <div class="knob-label">
+            <h5>{{name}}</h5>{{place}}</div>
+    </div>
+    {{/ifCond}} {{/each}}
+    </div>
 </script>
 
-<script id="temperature_template" type="text/x-handlebars-template">
-	<div>
-              <table class="table">
-                <tr>
-                  <th style="width: 10px">#</th>
-                  <th>Place</th>
-                  <th>Name</th>
-                  <th style="width:180px"></th>
-                  <th style="width: 40px">Value</th>
-                </tr>
-                {{#each temperature}}
-                {{#makeSerialTrTooltip}}{{/makeSerialTrTooltip}}
-                  <td>{{id}}.</td>
-                  <td>{{place}}</td>
-                  <td>{{name}}</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-danger" style="width: {{value}}%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-red">{{value}}&deg;</span></td>
-                </tr>
-                {{/each}}
-              </table>
-	</div>
+<script id="temperatureAllProgressBarPlace_template" type="text/x-handlebars-template">
+    <div>
+        <table class="table">
+            <tr>
+                <th style="width: 10px">#</th>
+                <th>Place</th>
+                <th>Name</th>
+                <th style="width:180px"></th>
+                <th style="width: 40px">Value</th>
+            </tr>
+            {{#each temperature}} {{#makeSerialTrTooltip}}{{/makeSerialTrTooltip}}
+            <tr data-toggle=\"tooltip\" title="{{serial}}">
+            <td>{{id}}.</td>
+            <td>{{place}}</td>
+            <td>{{name}}</td>
+            <td>
+                <div class="progress progress-xs">
+                    <div class="progress-bar progress-bar-danger" style="width: {{value}}%"></div>
+                </div>
+            </td>
+            <td><span class="badge bg-red">{{value}}&deg;</span></td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
 </script>
