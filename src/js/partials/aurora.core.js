@@ -1,7 +1,7 @@
 /*
  * LOCALTIME
  */
-var restAPI = "/rest/v1/"
+var restAPI = "/rest/v1/restapi"
 var mainObject = {}
 
 function doHanleBars(obj) {
